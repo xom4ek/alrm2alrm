@@ -1,0 +1,12 @@
+language: python
+sudo: required
+services:
+  - docker
+script:
+  - docker build -t a2a .
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+  - docker tag a2a $DOCKER_USER/a2a:$TRAVIS_BUILD_NUMBER
+  - docker push $DOCKER_USER/a2a:$TRAVIS_BUILD_NUMBER
+  - docker tag a2a $DOCKER_USER/a2a:latest
+  - docker push $DOCKER_USER/a2a:latest
