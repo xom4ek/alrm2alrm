@@ -1,0 +1,17 @@
+[
+  {
+    "startsAt": "2020-05-20T15:44:13.298Z",
+    "endsAt": "2020-05-20T15:44:13.298Z",
+    "annotations": {
+      "additionalProp1": "string",
+      "additionalProp2": "string",
+      "additionalProp3": "string"
+    },
+    "labels": {
+      "additionalProp1": "string",
+      "additionalProp2": "string",
+      "additionalProp3": "string"
+    },
+    "generatorURL": "string"
+  }
+]
