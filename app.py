@@ -7,6 +7,7 @@ from datetime import datetime
 from flask import jsonify
 import os
 
+webhook_url = os.environ.get('WEBHOOK_URL', 'https://alertmanager.nglm.rt.ru:6443/api/v2/alerts')
 
 app = Flask(__name__)
 
@@ -62,5 +63,9 @@ def send(alerts):
 if __name__ == '__main__':
     port = os.environ.get('PORT', 5000)
     host = os.environ.get('HOST', '0.0.0.0')
-    webhook_url = os.environ.get('WEBHOOK_URL', 'https://alertmanager.nglm.rt.ru:6443/api/v2/alerts')
     app.run(host=host, port=port,debug=True)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
