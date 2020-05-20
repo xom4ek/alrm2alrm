@@ -40,7 +40,7 @@ def main():
         if request.method == 'POST':
             return send(handle_alerts(request.get_json()))
     except Exception as e:
-        logging.error("Template alert fail {}".format(e))
+        app.logger.error("Template alert fail {}".format(e))
         return "Error: {}".format(e.__str__()), 500
 
 
@@ -50,13 +50,13 @@ def handle_alerts(data):
         try:
             alerts.append(Alert(alert))
         except Exception as e:
-            logging.error("Storing alerts failed: %s", e)
+            app.logger.error("Storing alerts failed: %s", e)
     return(alerts)
 
 def send(alerts):
     for alert in alerts:
-        logging.info(alert.labels['alert_name'])
-        logging.info(requests.post(webhook_url,json=[alert.data,],verify=False).text)
+        app.logger.info(alert.labels['alert_name'])
+        app.logger.info(requests.post(webhook_url,json=[alert.data,],verify=False).text)
     return "OK",200
 
 
